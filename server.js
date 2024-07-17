@@ -11,15 +11,15 @@ app.post("/api/echo", (req, res) => {
   res.send(req.body.message);
 });
 
-let users = [];
+const users = []; // 1
 
 // create
 app.post("/api/users", (req, res) => {
-  let user = {};
-  user.id = req.body.id;
-  user.username = req.body.username;
-  user.email = req.body.email;
-  user.password = req.body.password;
+  // user.id = req.body.id;
+  // user.username = req.body.username;
+  // user.email = req.body.email;
+  // user.password = req.body.password;
+  let user = {...req.body}; // 2
   users.push(user);
   res.send(`Новый пользователь создан. Кол-во пользователей ${users.length}`);
 });
@@ -30,11 +30,11 @@ app.get("/api/users", (req, res) => {
 });
 
 app.get("/api/users/:id", (req, res) => {
-  let user = users.filter((val) => val.id === Number(req.params.id));
-  if (user.length === 0) {
-    res.send('Пользователь с указанным id не найден');
+  let user = users.find((val) => val.id === Number(req.params.id));
+  if (user) {
+    res.send(JSON.stringify(user));
   } else {
-    res.send(JSON.stringify(user[0]));
+    res.send('Пользователь с указанным id не найден');
   }
 });
 
