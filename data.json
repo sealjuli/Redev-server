@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "Name",
+            "email": "email@gmail.com",
+            "password": "123456"
+        },
+        {
+            "id": 2,
+            "username": "user2",
+            "email": "2222",
+            "password": "11222111"
+        },
+        {
+            "id": 3,
+            "username": "user5",
+            "email": "55555",
+            "password": "55555"
+        }
+    ],
+    "books": [
+        "..."
+    ]
+}

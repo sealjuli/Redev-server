@@ -1,8 +1,19 @@
+const fs = require("fs");
+
 class UsersServices {
   #users = [];
 
   getUsers() {
-    return this.#users;
+    // return this.#users;
+    return new Promise((res, rej) => {
+      fs.readFile("data.json", "utf8", (err, data) => {
+        if (err) {
+          console.error(err);
+          rej(err);
+        }
+        res(JSON.parse(data)["users"]);
+      });
+    });
   }
 
   getUserById(id) {
@@ -10,7 +21,37 @@ class UsersServices {
   }
 
   createUser(user) {
-    this.#users.push(user);
+    // this.#users.push(user);
+    // appendFile
+
+    return new Promise((res, rej) => {
+      // чтение файла
+      fs.readFile("data.json", "utf8", (err, data) => {
+        if (err) {
+          console.error(err);
+          rej(err);
+        }
+        const users = JSON.parse(data)["users"];
+        const books = JSON.parse(data)["books"];
+        console.log(users);
+        console.log(books);
+        // добавить нового юзера
+        users.push(user);
+        // перезаписать файл
+        fs.writeFile(
+          "data.json",
+          JSON.stringify({ users: users, books: books }),
+          (err) => {
+            if (err) {
+              console.error(err);
+              rej(err);
+            }
+            console.log("Файл успешно записан.");
+            res(users);
+          }
+        );
+      });
+    });
   }
 
   findUserIndexById(id) {

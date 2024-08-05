@@ -7,8 +7,8 @@ class UsersControllers {
     res.send(`Новый пользователь создан. ${JSON.stringify(user)}`);
   }
 
-  getUsers(req, res) {
-    const users = UsersServices.getUsers();
+  async getUsers(req, res) {
+    const users = await UsersServices.getUsers();
     res.send(JSON.stringify(users));
   }
 
