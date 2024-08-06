@@ -1,9 +1,14 @@
 const BooksServices = require("../services/booksServices");
 
+const { v4: uuidv4 } = require("uuid");
+
 class BooksControllers {
   async createBook(req, res) {
-    const result = await BooksServices.createBook(req.body);
-    res.send(`Новая книга добавлена. ${JSON.stringify(req.body)}`);
+    const uuid = uuidv4();
+    const result = await BooksServices.createBook({ id: uuid, ...req.body });
+    res.send(
+      `Новая книга добавлена. ${JSON.stringify({ id: uuid, ...req.body })}`
+    );
   }
 
   async getBooks(req, res) {

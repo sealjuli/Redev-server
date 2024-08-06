@@ -1,1 +1,30 @@
-{"users":[{"id":1,"username":"Name","email":"email@gmail.com","password":"123456"},{"id":3,"username":"user3","email":"3333","password":"3333"}],"books":[{"id":1,"title":"Война и мир","author":"Толстой","genre":"роман-эпопея"}]}
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "Name",
+            "email": "email@gmail.com",
+            "password": "123456"
+        },
+        {
+            "id": "3",
+            "username": "user3",
+            "email": "3333",
+            "password": "3333"
+        },
+        {
+            "id": "6ae3717e-ba85-40b2-97f1-0bd293bbbd33",
+            "username": "user3",
+            "email": "3333",
+            "password": "3333"
+        }
+    ],
+    "books": [
+        {
+            "id": "1",
+            "title": "Война и мир",
+            "author": "Толстой",
+            "genre": "роман-эпопея"
+        }
+    ]
+}

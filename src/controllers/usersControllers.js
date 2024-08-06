@@ -1,9 +1,14 @@
 const UsersServices = require("../services/usersServices");
 
+const { v4: uuidv4 } = require("uuid");
+
 class UsersControllers {
   async createUser(req, res) {
-    const result = await UsersServices.createUser(req.body);
-    res.send(`Новый пользователь создан. ${JSON.stringify(req.body)}`);
+    const uuid = uuidv4();
+    const result = await UsersServices.createUser({ id: uuid, ...req.body });
+    res.send(
+      `Новый пользователь создан. ${JSON.stringify({ id: uuid, ...req.body })}`
+    );
   }
 
   async getUsers(req, res) {

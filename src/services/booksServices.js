@@ -9,7 +9,7 @@ class BooksServices {
   async getBookById(id) {
     const data = await FileHelper.readFile("data.json");
     const books = data["books"];
-    return books.find((val) => val.id === +id);
+    return books.find((val) => val.id === id);
   }
 
   async createBook(book) {
@@ -27,13 +27,13 @@ class BooksServices {
   async findBookIndexById(id) {
     const data = await FileHelper.readFile("data.json");
     const books = data["books"];
-    return books.findIndex((val) => val.id === +id);
+    return books.findIndex((val) => val.id === id);
   }
 
   async updateBookByIndex(index, req) {
     const data = await FileHelper.readFile("data.json");
     const books = data["books"];
-    books[index] = { id: +req.params.id, ...req.body };
+    books[index] = { id: req.params.id, ...req.body };
     // перезаписать файл
     return await FileHelper.writeFile("data.json", {
       users: data["users"],

@@ -9,7 +9,7 @@ class UsersServices {
   async getUserById(id) {
     const data = await FileHelper.readFile("data.json");
     const users = data["users"];
-    return users.find((val) => val.id === +id);
+    return users.find((val) => val.id === id);
   }
 
   async createUser(user) {
@@ -27,13 +27,13 @@ class UsersServices {
   async findUserIndexById(id) {
     const data = await FileHelper.readFile("data.json");
     const users = data["users"];
-    return users.findIndex((val) => val.id === +id);
+    return users.findIndex((val) => val.id === id);
   }
 
   async updateUserByIndex(index, req) {
     const data = await FileHelper.readFile("data.json");
     const users = data["users"];
-    users[index] = { id: +req.params.id, ...req.body };
+    users[index] = { id: req.params.id, ...req.body };
     // перезаписать файл
     return await FileHelper.writeFile("data.json", {
       users: users,
