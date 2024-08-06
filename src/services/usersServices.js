@@ -1,73 +1,66 @@
-const fs = require("fs");
+const FileHelper = require("../helpers/fileHelper");
 
 class UsersServices {
-  #users = [];
+  async getUsers() {
+    const data = await FileHelper.readFile("data.json");
+    return data["users"];
+  }
 
-  getUsers() {
-    // return this.#users;
-    return new Promise((res, rej) => {
-      fs.readFile("data.json", "utf8", (err, data) => {
-        if (err) {
-          console.error(err);
-          rej(err);
-        }
-        res(JSON.parse(data)["users"]);
-      });
+  async getUserById(id) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    return users.find((val) => val.id === +id);
+  }
+
+  async createUser(user) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    // добавить нового юзера
+    users.push(user);
+    // перезаписать файл
+    return await FileHelper.writeFile("data.json", {
+      users: users,
+      books: data["books"],
     });
   }
 
-  getUserById(id) {
-    return this.#users.find((val) => val.id === +id);
+  async findUserIndexById(id) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    return users.findIndex((val) => val.id === +id);
   }
 
-  createUser(user) {
-    // this.#users.push(user);
-    // appendFile
-
-    return new Promise((res, rej) => {
-      // чтение файла
-      fs.readFile("data.json", "utf8", (err, data) => {
-        if (err) {
-          console.error(err);
-          rej(err);
-        }
-        const users = JSON.parse(data)["users"];
-        const books = JSON.parse(data)["books"];
-        console.log(users);
-        console.log(books);
-        // добавить нового юзера
-        users.push(user);
-        // перезаписать файл
-        fs.writeFile(
-          "data.json",
-          JSON.stringify({ users: users, books: books }),
-          (err) => {
-            if (err) {
-              console.error(err);
-              rej(err);
-            }
-            console.log("Файл успешно записан.");
-            res(users);
-          }
-        );
-      });
+  async updateUserByIndex(index, req) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    users[index] = { id: +req.params.id, ...req.body };
+    // перезаписать файл
+    return await FileHelper.writeFile("data.json", {
+      users: users,
+      books: data["books"],
     });
   }
 
-  findUserIndexById(id) {
-    return this.#users.findIndex((val) => val.id === +id);
+  async updateUserPasswordByIndex(index, password) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    users[index].password = password;
+    // перезаписать файл
+    return await FileHelper.writeFile("data.json", {
+      users: users,
+      books: data["books"],
+    });
   }
 
-  updateUserByIndex(index, req) {
-    this.#users[index] = { id: +req.params.id, ...req.body };
-  }
-
-  updateUserPasswordByIndex(index, password) {
-    this.#users[index].password = password;
-  }
-
-  deleteUserByIndex(index) {
-    this.#users.splice(index, 1);
+  async deleteUserByIndex(index) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    users.splice(index, 1);
+    // перезаписать файл
+    return await FileHelper.writeFile("data.json", {
+      users: users,
+      books: data["books"],
+    });
   }
 }
 

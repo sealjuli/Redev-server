@@ -1,10 +1,9 @@
 const UsersServices = require("../services/usersServices");
 
 class UsersControllers {
-  createUser(req, res) {
-    const user = { ...req.body };
-    UsersServices.createUser(user);
-    res.send(`Новый пользователь создан. ${JSON.stringify(user)}`);
+  async createUser(req, res) {
+    const result = await UsersServices.createUser(req.body);
+    res.send(`Новый пользователь создан. ${JSON.stringify(req.body)}`);
   }
 
   async getUsers(req, res) {
@@ -12,8 +11,8 @@ class UsersControllers {
     res.send(JSON.stringify(users));
   }
 
-  getUserById(req, res) {
-    const user = UsersServices.getUserById(req.params.id);
+  async getUserById(req, res) {
+    const user = await UsersServices.getUserById(req.params.id);
     if (user) {
       res.send(JSON.stringify(user));
     } else {
@@ -21,33 +20,36 @@ class UsersControllers {
     }
   }
 
-  updateUser(req, res) {
-    const userIndex = UsersServices.findUserIndexById(req.params.id);
+  async updateUser(req, res) {
+    const userIndex = await UsersServices.findUserIndexById(req.params.id);
     if (userIndex < 0) {
       res.send("Пользователь с указанным id не найден");
     } else {
-      UsersServices.updateUserByIndex(userIndex, req);
-      res.send(JSON.stringify(UsersServices.getUserById(req.params.id)));
+      await UsersServices.updateUserByIndex(userIndex, req);
+      res.send(JSON.stringify(await UsersServices.getUserById(req.params.id)));
     }
   }
 
-  updateUserPassword(req, res) {
-    const userIndex = UsersServices.findUserIndexById(req.params.id);
+  async updateUserPassword(req, res) {
+    const userIndex = await UsersServices.findUserIndexById(req.params.id);
     if (userIndex < 0) {
       res.send("Пользователь с указанным id не найден");
     } else {
-      UsersServices.updateUserPasswordByIndex(userIndex, req.body.password);
-      res.send(JSON.stringify(UsersServices.getUserById(req.params.id)));
+      await UsersServices.updateUserPasswordByIndex(
+        userIndex,
+        req.body.password
+      );
+      res.send(JSON.stringify(await UsersServices.getUserById(req.params.id)));
     }
   }
 
-  deleteUser(req, res) {
-    const userIndex = UsersServices.findUserIndexById(req.params.id);
+  async deleteUser(req, res) {
+    const userIndex = await UsersServices.findUserIndexById(req.params.id);
     if (userIndex < 0) {
       res.send("Пользователь с указанным id не найден");
     } else {
-      UsersServices.deleteUserByIndex(userIndex);
-      res.send(JSON.stringify(UsersServices.getUsers()));
+      await UsersServices.deleteUserByIndex(userIndex);
+      res.send(JSON.stringify(await UsersServices.getUsers()));
     }
   }
 }
