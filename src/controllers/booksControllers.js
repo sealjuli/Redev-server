@@ -19,8 +19,32 @@ class BooksControllers {
   }
 
   async getBooks(req, res) {
-    const books = await BooksServices.getBooks();
-    res.send(JSON.stringify(books));
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    if (req.query.author) {
+      let books = await BooksServices.getBookByAuthor(req.query.author);
+      if (books.length > 0) {
+        if (req.headers.hideid === "yes") {
+          books = books.map((val) => {
+            return { title: val.title, author: val.author, genre: val.genre };
+          });
+        }
+        res.send(JSON.stringify(books));
+      } else {
+        res.send("Книги с таким автором отсутсвуют");
+      }
+    } else {
+      let books = await BooksServices.getBooks();
+      if (req.headers.hideid === "yes") {
+        books = books.map((val) => {
+          return { title: val.title, author: val.author, genre: val.genre };
+        });
+      }
+      res.send(JSON.stringify(books));
+    }
   }
 
   async getBookById(req, res) {

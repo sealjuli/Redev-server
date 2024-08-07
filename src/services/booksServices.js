@@ -12,6 +12,12 @@ class BooksServices {
     return books.find((val) => val.id === id);
   }
 
+  async getBookByAuthor(author) {
+    const data = await FileHelper.readFile("data.json");
+    const books = data["books"];
+    return books.filter((val) => val.author === author);
+  }
+
   async createBook(book) {
     const data = await FileHelper.readFile("data.json");
     const books = data["books"];

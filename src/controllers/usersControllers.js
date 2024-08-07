@@ -27,7 +27,7 @@ class UsersControllers {
 
     if (req.query.username) {
       let users = await UsersServices.getUserByName(req.query.username);
-      if (users) {
+      if (users.length > 0) {
         if (req.headers.hidepassword === 'yes') {
           users = users.map((val) => {
             return { id: val.id, username: val.username, email: val.email };

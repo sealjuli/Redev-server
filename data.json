@@ -1,13 +1,13 @@
 {
     "users": [
         {
-            "id": "1",
+            "id": "d7fdf084-4a38-437a-94ed-3deb286cf6e4",
             "username": "Name",
             "email": "email@gmail.com",
             "password": "123456"
         },
         {
-            "id": "3",
+            "id": "d6a689b6-b540-4bb2-aafd-c8f11a9a8759",
             "username": "user3",
             "email": "3333",
             "password": "3333"
@@ -21,7 +21,7 @@
     ],
     "books": [
         {
-            "id": "1",
+            "id": "e004e188-a1ec-4f58-9a80-40a75183a5b0",
             "title": "Война и мир",
             "author": "Толстой",
             "genre": "роман-эпопея"
