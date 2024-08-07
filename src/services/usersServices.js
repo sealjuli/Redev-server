@@ -12,6 +12,12 @@ class UsersServices {
     return users.find((val) => val.id === id);
   }
 
+  async getUserByName(name) {
+    const data = await FileHelper.readFile("data.json");
+    const users = data["users"];
+    return users.filter((val) => val.username === name);
+  }
+
   async createUser(user) {
     const data = await FileHelper.readFile("data.json");
     const users = data["users"];

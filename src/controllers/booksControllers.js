@@ -2,8 +2,15 @@ const BooksServices = require("../services/booksServices");
 
 const { v4: uuidv4 } = require("uuid");
 
+const { validationResult } = require("express-validator");
+
 class BooksControllers {
   async createBook(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const uuid = uuidv4();
     const result = await BooksServices.createBook({ id: uuid, ...req.body });
     res.send(
@@ -26,6 +33,11 @@ class BooksControllers {
   }
 
   async updateBook(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const bookIndex = await BooksServices.findBookIndexById(req.params.id);
     if (bookIndex < 0) {
       res.send("Книга с указанным id не найдена");
