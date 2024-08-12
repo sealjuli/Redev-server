@@ -2,21 +2,21 @@
     "users": [
         {
             "id": "d7fdf084-4a38-437a-94ed-3deb286cf6e4",
-            "username": "Name",
+            "username": "Name1",
             "email": "email@gmail.com",
             "password": "123456"
         },
         {
-            "id": "d6a689b6-b540-4bb2-aafd-c8f11a9a8759",
-            "username": "user3",
-            "email": "3333",
-            "password": "3333"
+            "id": "937d948d-2da9-4751-89f7-4305013b46be",
+            "username": "user4",
+            "email": "4444@gmail.com",
+            "password": "$2b$10$HRECD.E5FkrizCtuPKQXXuq5iNLHZ557EIpsvEhFQkTnH715c7nyy"
         },
         {
-            "id": "6ae3717e-ba85-40b2-97f1-0bd293bbbd33",
-            "username": "user3",
-            "email": "3333",
-            "password": "3333"
+            "id": "a5c8b5cf-ffd0-464b-98e0-e40a6f9652cd",
+            "username": "Julia",
+            "email": "julia@gmail.com",
+            "password": "123456"
         }
     ],
     "books": [

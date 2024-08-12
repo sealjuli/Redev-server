@@ -3,7 +3,6 @@ const UsersServices = require("../services/usersServices");
 const { v4: uuidv4 } = require("uuid");
 
 const { validationResult } = require("express-validator");
-const { query } = require("express");
 
 class UsersControllers {
   async createUser(req, res) {
@@ -28,9 +27,10 @@ class UsersControllers {
     if (req.query.username) {
       let users = await UsersServices.getUserByName(req.query.username);
       if (users.length > 0) {
-        if (req.headers.hidepassword === 'yes') {
+        if (req.headers.hidepassword === "yes") {
           users = users.map((val) => {
-            return { id: val.id, username: val.username, email: val.email };
+            return { ...val, password: undefined };
+            // return { id: val.id, username: val.username, email: val.email };
           });
         }
         res.send(JSON.stringify(users));
@@ -39,9 +39,10 @@ class UsersControllers {
       }
     } else {
       let users = await UsersServices.getUsers();
-      if (req.headers.hidepassword === 'yes') {
+      if (req.headers.hidepassword === "yes") {
         users = users.map((val) => {
-          return { id: val.id, username: val.username, email: val.email };
+          return { ...val, password: undefined };
+          // return { id: val.id, username: val.username, email: val.email };
         });
       }
       res.send(JSON.stringify(users));

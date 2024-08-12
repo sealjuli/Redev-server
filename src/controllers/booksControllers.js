@@ -29,7 +29,8 @@ class BooksControllers {
       if (books.length > 0) {
         if (req.headers.hideid === "yes") {
           books = books.map((val) => {
-            return { title: val.title, author: val.author, genre: val.genre };
+            return { ...val, id: undefined };
+            // return { title: val.title, author: val.author, genre: val.genre };
           });
         }
         res.send(JSON.stringify(books));
@@ -40,7 +41,8 @@ class BooksControllers {
       let books = await BooksServices.getBooks();
       if (req.headers.hideid === "yes") {
         books = books.map((val) => {
-          return { title: val.title, author: val.author, genre: val.genre };
+          return { ...val, id: undefined };
+          // return { title: val.title, author: val.author, genre: val.genre };
         });
       }
       res.send(JSON.stringify(books));
